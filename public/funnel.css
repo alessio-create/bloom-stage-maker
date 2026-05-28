@@ -58,11 +58,10 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .progress__back svg{width:14px;height:14px;transition:transform var(--dur) var(--ease)}
 
 /* ============ BUTTONS ============ */
-.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;font:500 12px/1 var(--font-sans);letter-spacing:.18em;text-transform:uppercase;border-radius:0;transition:all var(--dur) var(--ease);white-space:nowrap;position:relative;overflow:hidden}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;font:500 12px/1 var(--font-sans);letter-spacing:.18em;text-transform:uppercase;border-radius:0;transition:all var(--dur) var(--ease);white-space:nowrap;position:relative;overflow:hidden;isolation:isolate}
 .btn--primary{background:var(--emp-ink);color:#fff}
-.btn--primary::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--emp-red);transition:width var(--dur) var(--ease);z-index:0}
+.btn--primary::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--emp-red);transition:width var(--dur) var(--ease);z-index:-1}
 .btn--primary:hover::before{width:100%}
-.btn--primary > *{position:relative;z-index:1}
 .btn--primary:disabled{background:var(--emp-cream-deep);color:#fff;cursor:not-allowed}
 .btn--primary:disabled::before{display:none}
 .btn--ghost{color:var(--emp-ink);border-bottom:1px solid var(--emp-ink);padding:6px 0;text-transform:uppercase;letter-spacing:.18em;font:500 11px var(--font-sans);background:transparent}
