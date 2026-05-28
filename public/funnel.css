@@ -157,7 +157,6 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .t-h3{font-family:var(--font-display);font-weight:400;letter-spacing:-.005em;line-height:1.2}
 .accent{color:var(--emp-red);font-weight:300}
 .eyebrow{font:500 11px var(--font-sans);letter-spacing:.32em;text-transform:uppercase;color:var(--emp-red);display:inline-flex;align-items:center;gap:14px}
-.eyebrow::before{content:"";width:28px;height:1px;background:var(--emp-red)}
 
 /* ============ ANSWER CHOICES ============ */
 .choices{display:grid;gap:10px}
@@ -166,11 +165,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .choices--4{grid-template-columns:repeat(4,1fr)}
 .choices--stack{grid-template-columns:1fr}
 .choice{display:flex;align-items:center;gap:16px;padding:20px 22px;background:#fff;border:1px solid var(--rule);cursor:pointer;transition:all var(--dur) var(--ease);text-align:left;width:100%;font-family:inherit;position:relative;overflow:hidden}
-.choice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--emp-red);transform:scaleY(0);transform-origin:top;transition:transform var(--dur) var(--ease)}
 .choice:hover{border-color:var(--emp-ink);background:var(--emp-cream-soft);padding-left:24px}
-.choice:hover::before{transform:scaleY(1)}
 .choice.is-selected{border-color:var(--emp-red)}
-.choice.is-selected::before{transform:scaleY(1)}
 .choice__key{flex:0 0 30px;height:30px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;font:500 12px var(--font-sans);color:var(--fg-muted);transition:all var(--dur) var(--ease)}
 .choice:hover .choice__key{border-color:var(--emp-ink);color:var(--emp-ink)}
 .choice.is-selected .choice__key{background:var(--emp-red);border-color:var(--emp-red);color:#fff}
