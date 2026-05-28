@@ -51,9 +51,11 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 .progress__step strong{color:var(--emp-ink);font-weight:600}
 .progress__track{flex:1;height:2px;background:var(--rule);position:relative;border-radius:1px}
 .progress__fill{position:absolute;left:0;top:0;height:100%;background:var(--emp-red);border-radius:1px;transition:width .6s var(--ease-out)}
-.progress__back{font:500 12px var(--font-sans);letter-spacing:.04em;color:var(--fg-muted);display:flex;align-items:center;gap:8px;transition:color var(--dur) var(--ease)}
-.progress__back:hover{color:var(--emp-red)}
-.progress__back svg{width:14px;height:14px}
+.progress__back{font:600 11px var(--font-sans);letter-spacing:.14em;text-transform:uppercase;color:var(--fg-muted);display:inline-flex;align-items:center;gap:8px;padding:9px 16px 9px 12px;border:1px solid var(--rule);border-radius:999px;background:#fff;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease),background var(--dur) var(--ease),transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);cursor:pointer;text-decoration:none}
+.progress__back:hover{color:var(--emp-ink);border-color:var(--emp-ink);background:var(--emp-cream,#faf7f2);box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.progress__back:hover svg{transform:translateX(-2px)}
+.progress__back:active{transform:translateY(1px)}
+.progress__back svg{width:14px;height:14px;transition:transform var(--dur) var(--ease)}
 
 /* ============ BUTTONS ============ */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;font:500 12px/1 var(--font-sans);letter-spacing:.18em;text-transform:uppercase;border-radius:0;transition:all var(--dur) var(--ease);white-space:nowrap;position:relative;overflow:hidden}
