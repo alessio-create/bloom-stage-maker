@@ -37,7 +37,10 @@ export function FunnelPage({ head, body }: FunnelPageProps) {
     scripts.forEach((old) => {
       const s = document.createElement("script");
       Array.from(old.attributes).forEach((a) => s.setAttribute(a.name, a.value));
-      s.text = old.textContent ?? "";
+      const inline = old.textContent ?? "";
+      // Wrap inline scripts in an IIFE so top-level `const`/`let` declarations
+      // (e.g. IntersectionObservers named `io`) don't collide across route remounts.
+      s.text = inline ? `(function(){\n${inline}\n})();` : "";
       old.parentNode?.replaceChild(s, old);
     });
   }, [body]);
