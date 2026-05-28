@@ -7,31 +7,16 @@ interface FunnelPageProps {
 
 /**
  * Renders a static EuroMedPartner funnel page (extracted HTML).
- * - Injects the page's <style>/<link> tags into document.head on mount.
- * - Renders the <body> markup verbatim.
+ * - Inlines page <style>/<link> at the top of the body so styles apply
+ *   synchronously with the markup (no FOUC during route transitions).
  * - Re-executes any inline <script> tags after mount (innerHTML doesn't run them).
  */
 export function FunnelPage({ head, body }: FunnelPageProps) {
-  const bodyRef = useRef<HTMLDivElement>(null);
-
-  // Inject the page-specific <style> and <link> into <head>.
-  useEffect(() => {
-    const container = document.createElement("div");
-    container.innerHTML = head;
-    const injected: Element[] = [];
-    Array.from(container.children).forEach((node) => {
-      const clone = node.cloneNode(true) as Element;
-      document.head.appendChild(clone);
-      injected.push(clone);
-    });
-    return () => {
-      injected.forEach((n) => n.parentNode?.removeChild(n));
-    };
-  }, [head]);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   // Re-execute inline scripts inside the body.
   useEffect(() => {
-    const root = bodyRef.current;
+    const root = rootRef.current;
     if (!root) return;
     const scripts = Array.from(root.querySelectorAll("script"));
     scripts.forEach((old) => {
@@ -45,5 +30,10 @@ export function FunnelPage({ head, body }: FunnelPageProps) {
     });
   }, [body]);
 
-  return <div ref={bodyRef} dangerouslySetInnerHTML={{ __html: body }} />;
+  // Inline <link rel="stylesheet"> and <style> at the very top of the body so
+  // they paint synchronously with the markup. Browsers accept these tags in
+  // body and they participate in the document's CSSOM immediately.
+  const html = head + body;
+
+  return <div ref={rootRef} dangerouslySetInnerHTML={{ __html: html }} />;
 }
