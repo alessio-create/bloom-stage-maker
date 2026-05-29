@@ -100,7 +100,7 @@ export function FunnelPage({ head, body }: FunnelPageProps) {
   // Inline <link rel="stylesheet"> and <style> at the very top of the body so
   // they paint synchronously with the markup. Browsers accept these tags in
   // body and they participate in the document's CSSOM immediately.
-  const footer = `<footer class="funnel-footer"><div class="funnel-footer__inner">Copyright © 2026 - EUROMEDPARTNER LA BOUTIQUE DI FINANZA AGEVOLATA S.R.L. P.IVA 07322520821 | <a href="/privacy">Privacy Policy</a></div></footer>`;
+  const footer = `<footer class="funnel-footer"><div class="funnel-footer__inner">Copyright © 2026 - EUROMEDPARTNER LA BOUTIQUE DI FINANZA AGEVOLATA S.R.L. P.IVA 07322520821 | <a href="/privacy">Privacy Policy</a> | <a href="/cookie-policy">Cookie Policy</a></div></footer>`;
   const html = head + body + footer;
 
   return <div ref={rootRef} className="funnel-page" dangerouslySetInnerHTML={{ __html: html }} />;
