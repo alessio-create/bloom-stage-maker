@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FunnelPage } from "@/funnel/FunnelPage";
-import { title, head, body } from "@/funnel/start.page";
+import { LazyFunnelPage } from "@/funnel/LazyFunnelPage";
+
+const title = "Smart&Start Italia · La tua startup è finanziabile?";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -11,5 +12,5 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Scopri in 2 minuti se il tuo progetto è finanziabile." },
     ],
   }),
-  component: () => <FunnelPage head={head} body={body} />,
+  component: () => <LazyFunnelPage load={() => import("@/funnel/start.page")} />,
 });

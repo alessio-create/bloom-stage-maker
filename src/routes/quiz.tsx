@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FunnelPage } from "@/funnel/FunnelPage";
-import { title, head, body } from "@/funnel/quiz.page";
+import { LazyFunnelPage } from "@/funnel/LazyFunnelPage";
+
+const title = "Smart&Start Italia · Quiz di idoneità";
 
 export const Route = createFileRoute("/quiz")({
   head: () => ({ meta: [{ title }] }),
-  component: () => <FunnelPage head={head} body={body} />,
+  component: () => <LazyFunnelPage load={() => import("@/funnel/quiz.page")} />,
 });
