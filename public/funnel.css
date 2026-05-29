@@ -245,3 +245,9 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .progress__inner{padding:12px 20px;gap:16px}
   .progress__logo{display:none}
 }
+
+/* Global funnel footer */
+.funnel-footer{margin-top:48px;padding:24px 16px;border-top:1px solid rgba(0,0,0,.08);background:transparent}
+.funnel-footer__inner{max-width:1200px;margin:0 auto;text-align:center;font-size:12px;line-height:1.5;color:#6b6b6b;letter-spacing:.01em}
+.funnel-footer__inner a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.funnel-footer__inner a:hover{color:#000}
