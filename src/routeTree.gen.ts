@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as OptinRouteImport } from './routes/optin'
+import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const OptinRoute = OptinRouteImport.update({
   path: '/optin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiePolicyRoute = CookiePolicyRouteImport.update({
+  id: '/cookie-policy',
+  path: '/cookie-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BookingRoute = BookingRouteImport.update({
   id: '/booking',
   path: '/booking',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/booking': typeof BookingRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/optin': typeof OptinRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/booking': typeof BookingRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/optin': typeof OptinRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
@@ -59,21 +67,36 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/booking': typeof BookingRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/optin': typeof OptinRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/booking' | '/optin' | '/privacy' | '/quiz'
+  fullPaths:
+    | '/'
+    | '/booking'
+    | '/cookie-policy'
+    | '/optin'
+    | '/privacy'
+    | '/quiz'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/booking' | '/optin' | '/privacy' | '/quiz'
-  id: '__root__' | '/' | '/booking' | '/optin' | '/privacy' | '/quiz'
+  to: '/' | '/booking' | '/cookie-policy' | '/optin' | '/privacy' | '/quiz'
+  id:
+    | '__root__'
+    | '/'
+    | '/booking'
+    | '/cookie-policy'
+    | '/optin'
+    | '/privacy'
+    | '/quiz'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookingRoute: typeof BookingRoute
+  CookiePolicyRoute: typeof CookiePolicyRoute
   OptinRoute: typeof OptinRoute
   PrivacyRoute: typeof PrivacyRoute
   QuizRoute: typeof QuizRoute
@@ -102,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OptinRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookie-policy': {
+      id: '/cookie-policy'
+      path: '/cookie-policy'
+      fullPath: '/cookie-policy'
+      preLoaderRoute: typeof CookiePolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/booking': {
       id: '/booking'
       path: '/booking'
@@ -122,6 +152,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookingRoute: BookingRoute,
+  CookiePolicyRoute: CookiePolicyRoute,
   OptinRoute: OptinRoute,
   PrivacyRoute: PrivacyRoute,
   QuizRoute: QuizRoute,
