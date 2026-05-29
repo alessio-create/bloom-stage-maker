@@ -243,6 +243,7 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
   .choices--2,.choices--3,.choices--4{grid-template-columns:1fr}
   .funnel-bar__inner{padding:12px 20px}
   .progress__inner{padding:12px 20px;gap:16px}
+  .progress__back{margin-left:20px}
   .progress__logo{display:none}
 }
 
