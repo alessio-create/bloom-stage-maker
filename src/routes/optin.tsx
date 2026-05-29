@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FunnelPage } from "@/funnel/FunnelPage";
-import { title, head, body } from "@/funnel/optin.page";
+import { LazyFunnelPage } from "@/funnel/LazyFunnelPage";
+
+const title = "Smart&Start Italia · Ricevi il report";
 
 export const Route = createFileRoute("/optin")({
   head: () => ({ meta: [{ title }] }),
-  component: () => <FunnelPage head={head} body={body} />,
+  component: () => <LazyFunnelPage load={() => import("@/funnel/optin.page")} />,
 });
