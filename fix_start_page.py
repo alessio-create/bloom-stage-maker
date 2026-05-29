@@ -4,21 +4,20 @@ file_path = 'src/funnel/start.page.ts'
 with open(file_path, 'r') as f:
     content = f.read()
 
-# The user wants to change this literal string (including the literal backslash-n sequences)
-target = r'\n      30 SECONDI\n      Gratuito\n      Dati al sicuro\n      Senza impegno\n    '
-# to just '\n' (as a literal backslash-n sequence)
-replacement = r'\n'
+# Pattern for the final__meta div and its contents
+# We want to replace the INNER content of the div with a newline, 
+# but specifically the part that matches the user's intent.
+# Actually, the user's provided string implies they want to remove these labels.
 
-if target in content:
-    new_content = content.replace(target, replacement)
+# Target the specific block in the final__meta div
+pattern = r'(<div class=\\"final__meta reveal\\" data-d=\\"4\\">).*?(</div>)'
+replacement = r'\1\\n    \2'
+
+new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+if content != new_content:
     with open(file_path, 'w') as f:
         f.write(new_content)
-    print("Success: Pattern found and replaced.")
+    print("Success: Final meta labels removed.")
 else:
-    print("Error: Exact pattern not found.")
-    # Let's try to find a similar pattern to see what's wrong
-    pattern = r'30 SECONDI.*?Gratuito.*?Dati al sicuro.*?Senza impegno'
-    matches = re.findall(pattern, content, re.DOTALL)
-    if matches:
-        print(f"Found similar matches: {len(matches)}")
-        print(f"First match starts with: {matches[0][:50]}")
+    print("Error: Could not find the final__meta block.")
