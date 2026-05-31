@@ -86,6 +86,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
+      {
+        rel: "preload",
+        href: "/funnel.css",
+        as: "style",
+      },
+      {
+        rel: "stylesheet",
+        href: "/funnel.css",
+      },
     ],
   }),
   shellComponent: RootShell,
