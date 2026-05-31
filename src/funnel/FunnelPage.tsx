@@ -42,7 +42,7 @@ export function FunnelPage({ head, body }: FunnelPageProps) {
       Array.from(root.children).forEach((child, i) => {
         if (!(child instanceof HTMLElement)) return;
         if (skip.has(child.tagName)) return;
-        if (child.classList.contains("funnel-bar") || child.classList.contains("progress") || child.classList.contains("ss-bar")) return;
+        if (child.classList.contains("funnel-bar") || child.classList.contains("progress") || child.classList.contains("ss-bar") || child.classList.contains("cta-bar")) return;
         if (!child.hasAttribute("data-reveal")) {
           child.setAttribute("data-reveal", "");
           if (i < 6) child.setAttribute("data-stagger", String(Math.min(i, 5)));
