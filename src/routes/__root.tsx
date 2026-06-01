@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Smart&Start Italia | Sei Idoneo?" },
+      { name: "description", content: "Scopri in 30 secondi se la tua startup ha i requisiti per accedere al bando. Fino a €1.500.000 e fino al 35% a fondo perduto nel Mezzogiorno." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Smart&Start Italia | Sei Idoneo?" },
+      { property: "og:description", content: "Scopri in 30 secondi se la tua startup ha i requisiti per accedere al bando. Fino a €1.500.000 e fino al 35% a fondo perduto nel Mezzogiorno." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Smart&Start Italia | Sei Idoneo?" },
+      { name: "twitter:description", content: "Scopri in 30 secondi se la tua startup ha i requisiti per accedere al bando. Fino a €1.500.000 e fino al 35% a fondo perduto nel Mezzogiorno." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/PcJDLCXPA1eSmvzpXh1vTthLkkf2/social-images/social-1780320189940-EuroMedPartner_Linkedin_Profilo.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/PcJDLCXPA1eSmvzpXh1vTthLkkf2/social-images/social-1780320189940-EuroMedPartner_Linkedin_Profilo.webp" },
     ],
     links: [
       {
