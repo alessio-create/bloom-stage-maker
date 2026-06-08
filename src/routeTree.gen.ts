@@ -15,6 +15,8 @@ import { Route as OptinRouteImport } from './routes/optin'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as BookingRouteImport } from './routes/booking'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiPublicCalSlotsRouteImport } from './routes/api/public/cal/slots'
+import { Route as ApiPublicCalBookingRouteImport } from './routes/api/public/cal/booking'
 
 const QuizRoute = QuizRouteImport.update({
   id: '/quiz',
@@ -46,6 +48,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicCalSlotsRoute = ApiPublicCalSlotsRouteImport.update({
+  id: '/api/public/cal/slots',
+  path: '/api/public/cal/slots',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicCalBookingRoute = ApiPublicCalBookingRouteImport.update({
+  id: '/api/public/cal/booking',
+  path: '/api/public/cal/booking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +66,8 @@ export interface FileRoutesByFullPath {
   '/optin': typeof OptinRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
+  '/api/public/cal/booking': typeof ApiPublicCalBookingRoute
+  '/api/public/cal/slots': typeof ApiPublicCalSlotsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +76,8 @@ export interface FileRoutesByTo {
   '/optin': typeof OptinRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
+  '/api/public/cal/booking': typeof ApiPublicCalBookingRoute
+  '/api/public/cal/slots': typeof ApiPublicCalSlotsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +87,8 @@ export interface FileRoutesById {
   '/optin': typeof OptinRoute
   '/privacy': typeof PrivacyRoute
   '/quiz': typeof QuizRoute
+  '/api/public/cal/booking': typeof ApiPublicCalBookingRoute
+  '/api/public/cal/slots': typeof ApiPublicCalSlotsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,8 +99,18 @@ export interface FileRouteTypes {
     | '/optin'
     | '/privacy'
     | '/quiz'
+    | '/api/public/cal/booking'
+    | '/api/public/cal/slots'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/booking' | '/cookie-policy' | '/optin' | '/privacy' | '/quiz'
+  to:
+    | '/'
+    | '/booking'
+    | '/cookie-policy'
+    | '/optin'
+    | '/privacy'
+    | '/quiz'
+    | '/api/public/cal/booking'
+    | '/api/public/cal/slots'
   id:
     | '__root__'
     | '/'
@@ -91,6 +119,8 @@ export interface FileRouteTypes {
     | '/optin'
     | '/privacy'
     | '/quiz'
+    | '/api/public/cal/booking'
+    | '/api/public/cal/slots'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -100,6 +130,8 @@ export interface RootRouteChildren {
   OptinRoute: typeof OptinRoute
   PrivacyRoute: typeof PrivacyRoute
   QuizRoute: typeof QuizRoute
+  ApiPublicCalBookingRoute: typeof ApiPublicCalBookingRoute
+  ApiPublicCalSlotsRoute: typeof ApiPublicCalSlotsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -146,6 +178,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/cal/slots': {
+      id: '/api/public/cal/slots'
+      path: '/api/public/cal/slots'
+      fullPath: '/api/public/cal/slots'
+      preLoaderRoute: typeof ApiPublicCalSlotsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/cal/booking': {
+      id: '/api/public/cal/booking'
+      path: '/api/public/cal/booking'
+      fullPath: '/api/public/cal/booking'
+      preLoaderRoute: typeof ApiPublicCalBookingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -156,7 +202,19 @@ const rootRouteChildren: RootRouteChildren = {
   OptinRoute: OptinRoute,
   PrivacyRoute: PrivacyRoute,
   QuizRoute: QuizRoute,
+  ApiPublicCalBookingRoute: ApiPublicCalBookingRoute,
+  ApiPublicCalSlotsRoute: ApiPublicCalSlotsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
