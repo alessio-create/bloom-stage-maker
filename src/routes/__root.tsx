@@ -4,9 +4,25 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
+  }
+}
+
+const PIXEL_EVENT_BY_PATH: Record<string, { event: string; type: "track" | "trackCustom" }> = {
+  "/": { event: "PageView", type: "track" },
+  "/quiz": { event: "ViewContent", type: "track" },
+  "/optin": { event: "CompleteRegistration", type: "track" },
+  "/booking": { event: "Lead", type: "track" },
+};
 
 import appCss from "../styles.css?url";
 
@@ -109,6 +125,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children:
           "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-DMHJ8L68PB');",
       },
+      {
+        children:
+          "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','2490237398091512');",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -133,6 +153,27 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    const cfg = PIXEL_EVENT_BY_PATH[pathname];
+    if (!cfg) return;
+    const fire = () => {
+      if (typeof window.fbq === "function") {
+        window.fbq(cfg.type, cfg.event);
+      }
+    };
+    if (typeof window.fbq === "function") fire();
+    else {
+      const id = window.setInterval(() => {
+        if (typeof window.fbq === "function") {
+          window.clearInterval(id);
+          fire();
+        }
+      }, 100);
+      window.setTimeout(() => window.clearInterval(id), 5000);
+    }
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
