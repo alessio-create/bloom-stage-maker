@@ -4,9 +4,25 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
+
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
+  }
+}
+
+const PIXEL_EVENT_BY_PATH: Record<string, { event: string; type: "track" | "trackCustom" }> = {
+  "/": { event: "PageView", type: "track" },
+  "/quiz": { event: "ViewContent", type: "track" },
+  "/optin": { event: "CompleteRegistration", type: "track" },
+  "/booking": { event: "Lead", type: "track" },
+};
 
 import appCss from "../styles.css?url";
 
