@@ -100,6 +100,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "/funnel.css",
       },
     ],
+    scripts: [
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-DMHJ8L68PB",
+        async: true,
+      },
+      {
+        children:
+          "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-DMHJ8L68PB');",
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
