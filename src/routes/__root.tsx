@@ -153,6 +153,27 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    const cfg = PIXEL_EVENT_BY_PATH[pathname];
+    if (!cfg) return;
+    const fire = () => {
+      if (typeof window.fbq === "function") {
+        window.fbq(cfg.type, cfg.event);
+      }
+    };
+    if (typeof window.fbq === "function") fire();
+    else {
+      const id = window.setInterval(() => {
+        if (typeof window.fbq === "function") {
+          window.clearInterval(id);
+          fire();
+        }
+      }, 100);
+      window.setTimeout(() => window.clearInterval(id), 5000);
+    }
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>
