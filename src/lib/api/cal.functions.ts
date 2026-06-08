@@ -115,8 +115,5 @@ export const createCalBooking = createServerFn({ method: "POST" })
       return { ok: false as const, error: message };
     }
 
-    return {
-      ok: true as const,
-      booking: parsed as unknown,
-    };
+    return { ok: true as const };
   });
